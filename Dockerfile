@@ -4,7 +4,7 @@ ENV ASPNETCORE_URLS http://+:80
 ENV NODE_VERSION 6.11.1
 
 RUN yum update \
-    && yum install -y --no-install-recommends \
+    && yum -y install --no-install-recommends \
         libc6 \
         libcurl3 \
         libgcc1 \
