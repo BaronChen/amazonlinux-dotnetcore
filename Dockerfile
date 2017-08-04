@@ -3,8 +3,8 @@ FROM amazonlinux:2017.03.0.20170401-with-sources
 ENV ASPNETCORE_URLS http://+:80
 ENV NODE_VERSION 6.11.1
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+RUN yum update \
+    && yum install -y --no-install-recommends \
         libc6 \
         libcurl3 \
         libgcc1 \
@@ -39,7 +39,7 @@ RUN mkdir warmup \
    
 RUN buildDeps='xz-utils' \
     && set -x \
-    && apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+    && yum update && yum install -y $buildDeps --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-x64.tar.xz" \
     && curl -SLO "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
@@ -47,7 +47,7 @@ RUN buildDeps='xz-utils' \
     && grep " node-v$NODE_VERSION-linux-x64.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
     && tar -xJf "node-v$NODE_VERSION-linux-x64.tar.xz" -C /usr/local --strip-components=1 \
     && rm "node-v$NODE_VERSION-linux-x64.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
-    && apt-get purge -y --auto-remove $buildDeps \
+    && yum purge -y --auto-remove $buildDeps \
     && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
     # set up bower and gulp
     && npm install -g bower gulp \
