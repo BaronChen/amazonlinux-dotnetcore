@@ -1,5 +1,8 @@
 FROM amazonlinux:2017.03.0.20170401-with-sources
 
+ENV ASPNETCORE_URLS http://+:80
+ENV NODE_VERSION 6.11.1
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libc6 \
